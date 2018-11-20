@@ -32,8 +32,6 @@ public class AddUserTest {
 
         User user = session.selectOne("addUser",addUserCase);
         System.out.println(user.toString());
-
-
         //结果判断
         Assert.assertEquals(addUserCase.getExpected(),result);
     }

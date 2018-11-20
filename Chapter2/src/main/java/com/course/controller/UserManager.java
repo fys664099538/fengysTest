@@ -68,12 +68,12 @@ public class UserManager {
     }
 
     @ApiOperation(value = "更新/删除用户接口",httpMethod = "POST")
-    @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateUserInfo",method = RequestMethod.POST)
     public int updateUser(HttpServletRequest req,@RequestBody User user){
         Boolean x = verifyCookies(req);
         int result = 0;
         if(x==true){
-            result = template.update("updateUser",user);
+            result = template.update("updateUserInfo",user);
         }
         log.info("更新的数据的条目数为："+result);
         return result;

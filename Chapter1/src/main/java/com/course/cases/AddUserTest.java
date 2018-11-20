@@ -18,7 +18,7 @@ import java.io.IOException;
 public class AddUserTest {
 
     @Test(dependsOnGroups = "loginTrue",description = "添加用户测试")
-    public void addUser() throws IOException {
+    public void addUser() throws IOException, InterruptedException {
         SqlSession session = DatabaseUtil.getSqlSession();
         AddUserCase addUserCase = session.selectOne("addUserCase",1);
         System.out.println(addUserCase.toString());
@@ -26,9 +26,14 @@ public class AddUserTest {
 
         //发请求，获取结果
         String result = getResult(addUserCase);
+
         //验证返回结果
+        Thread.sleep(10000);
+
         User user = session.selectOne("addUser",addUserCase);
         System.out.println(user.toString());
+
+
         //结果判断
         Assert.assertEquals(addUserCase.getExpected(),result);
     }
@@ -43,7 +48,7 @@ public class AddUserTest {
         param.put("isDelete",addUserCase.getIsDelete());
         param.put("permission",addUserCase.getPermission());
         //设置头信息
-        post.addHeader("content-type","application/json");
+        post.setHeader("content-type","application/json");
         StringEntity entity = new StringEntity(param.toString(),"utf-8");
         post.setEntity(entity);
 

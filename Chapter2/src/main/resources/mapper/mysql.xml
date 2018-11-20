@@ -42,7 +42,7 @@
         </trim>
     </select>
     <!--更新/删除用户信息-->
-    <update id="updateUser" parameterType="com.course.model.User">
+    <update id="updateUserInfo" parameterType="com.course.model.User">
         update user
         <trim prefix="SET" suffixOverrides=",">
             <if test="null != userName and '' != userName">
@@ -57,7 +57,10 @@
             <if test="null != isDelete and '' != isDelete">
                 isDelete = #{isDelete},
             </if>
+            <if test="null != permission and '' != permission">
+                permission = #{permission},
+            </if>
         </trim>
-        where id = #{id}
+        WHERE id = #{id};
     </update>
 </mapper>
